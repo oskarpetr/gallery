@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body {
+  font-family: var(--font-neue-montreal), Arial, Helvetica, sans-serif;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
