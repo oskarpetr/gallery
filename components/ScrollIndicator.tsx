@@ -18,7 +18,7 @@ export default function ScrollIndicator({ progress }: Props) {
   );
 
   return (
-    <div className="fixed bottom-3 left-6 bg-white rounded-full w-96 p-4 shadow-2xl border border-black/10">
+    <div className="fixed bottom-3 left-6 bg-white rounded-full w-96 p-4 shadow-2xl border-2 border-black/10">
       <div className="relative w-full h-3 bg-black/10 rounded-full overflow-hidden">
         <motion.div
           className="absolute h-3 bg-black rounded-full w-16"
