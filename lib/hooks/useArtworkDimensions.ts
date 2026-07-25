@@ -11,8 +11,8 @@ function getAspectRatio(artwork: IArtwork) {
 }
 
 function computeSize(aspectRatio: number) {
-  const maxW = Math.min(window.innerWidth * 0.9, 1400);
-  const maxH = Math.min(window.innerHeight * 0.85, 1400);
+  const maxW = Math.min(window.innerWidth * 0.5, 1400);
+  const maxH = Math.min(window.innerHeight * 0.9, 1400);
 
   let width = maxW;
   let height = width / aspectRatio;

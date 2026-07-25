@@ -10,8 +10,6 @@ import ArtworkModal from "./ArtworkModal";
 import Button from "./Button";
 import { BinocularsIcon } from "@phosphor-icons/react";
 
-const MotionImage = m.create(Image);
-
 interface Props {
   artwork: IDisplayArtwork;
 }
@@ -45,8 +43,8 @@ export default memo(function ArtworkItem({ artwork }: Props) {
   return (
     <div>
       <m.div
-        initial={{ opacity: 0, filter: "blur(5px)" }}
-        animate={{ opacity: 1, filter: "none" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
+        animate={{ opacity: 1, y: 0, filter: "none" }}
         transition={{
           delay: artwork.displayIndex * 0.02,
           ...sharedTransition,
@@ -72,7 +70,7 @@ export default memo(function ArtworkItem({ artwork }: Props) {
               transition={sharedTransition}
             >
               {artwork.artwork.type === "image" ? (
-                <MotionImage
+                <Image
                   src={artwork.artwork.src}
                   alt={`Artwork ${artwork.displayIndex + 1}`}
                   className="w-full h-full"
@@ -85,9 +83,9 @@ export default memo(function ArtworkItem({ artwork }: Props) {
                   placeholder="blur"
                 />
               ) : (
-                <m.div ref={videoContainerRef} className="w-full h-full">
+                <div ref={videoContainerRef} className="w-full h-full">
                   {videoInView && (
-                    <m.video
+                    <video
                       autoPlay
                       loop
                       muted
@@ -99,9 +97,9 @@ export default memo(function ArtworkItem({ artwork }: Props) {
                         src={artwork.artwork.src}
                         type="video/mp4"
                       ></source>
-                    </m.video>
+                    </video>
                   )}
-                </m.div>
+                </div>
               )}
             </m.div>
             <div className="absolute inset-0 bg-black/10 rounded-md"></div>
