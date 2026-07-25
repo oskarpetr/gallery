@@ -14,6 +14,7 @@ interface Props {
 
 export default memo(function ArtworkItem({ artwork }: Props) {
   const [selected, setSelected] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const [videoInView, setVideoInView] = useState(false);
   const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -57,6 +58,8 @@ export default memo(function ArtworkItem({ artwork }: Props) {
         <button
           className="relative group cursor-pointer flex"
           onClick={() => setSelected(true)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <div>
             <m.div
@@ -102,6 +105,19 @@ export default memo(function ArtworkItem({ artwork }: Props) {
             </m.div>
             <div className="absolute inset-0 bg-black/10 rounded-md"></div>
           </div>
+
+          {isHovered && !artwork.artwork.isVideo && (
+            <div className="hidden">
+              <Image
+                src={artwork.artwork.src}
+                alt="preload"
+                width={1920}
+                height={1080}
+                quality={85}
+                priority
+              />
+            </div>
+          )}
 
           <div className="group-hover:opacity-100 flex transition opacity-0 absolute rounded-md bg-black/40 inset-0 pointer-events-none justify-center items-center z-20">
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-1">
