@@ -2,9 +2,11 @@
 
 import { IDisplayArtwork } from "@/types/Artwork";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { memo, useState } from "react";
-import { cn } from "@/utils/cn";
+import { AnimatePresence, m } from "framer-motion";
+import { memo, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils/cn";
+import { sharedTransition } from "@/lib/animation";
+import ArtworkModal from "./ArtworkModal";
 
 interface Props {
   artwork: IDisplayArtwork;
@@ -13,16 +15,32 @@ interface Props {
 export default memo(function ArtworkItem({ artwork }: Props) {
   const [selected, setSelected] = useState(false);
 
-  const sharedTransition = {
-    type: "spring",
-    damping: 15,
-    stiffness: 120,
-    mass: 0.5,
-  } as const;
+  const [videoInView, setVideoInView] = useState(false);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!artwork.artwork.isVideo || videoInView) return;
+
+    const el = videoContainerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVideoInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [artwork.artwork.isVideo, videoInView]);
 
   return (
     <div>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
         animate={{ opacity: 1, y: 0, filter: "none" }}
         transition={{
@@ -33,7 +51,7 @@ export default memo(function ArtworkItem({ artwork }: Props) {
       >
         <div>
           <div>{String(artwork.displayIndex + 1).padStart(2, "0")}</div>
-          <div className="opacity-50 -mt-1">{artwork.artwork.description}</div>
+          <div className="opacity-70 -mt-1">{artwork.artwork.description}</div>
         </div>
 
         <button
@@ -41,10 +59,10 @@ export default memo(function ArtworkItem({ artwork }: Props) {
           onClick={() => setSelected(true)}
         >
           <div>
-            <motion.div
+            <m.div
               layoutId={`artwork-${artwork.index}`}
               className={cn(
-                "relative z-10 overflow-hidden rounded-md aspect-auto",
+                "relative z-10 w-full overflow-hidden rounded-md",
                 artwork.artwork.needsBorder ? "border-2 border-black/5" : "",
               )}
               transition={sharedTransition}
@@ -53,22 +71,35 @@ export default memo(function ArtworkItem({ artwork }: Props) {
                 <Image
                   src={artwork.artwork.src}
                   alt={`Artwork ${artwork.displayIndex + 1}`}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full"
+                  width={600}
+                  height={800}
+                  quality={50}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+                  priority={artwork.displayIndex < 4}
+                  fetchPriority={artwork.displayIndex === 0 ? "high" : "auto"}
+                  placeholder="blur"
                 />
               ) : (
-                <motion.div className="w-full h-full">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  >
-                    <source src={artwork.artwork.src} type="video/mp4"></source>
-                  </video>
-                </motion.div>
+                <m.div ref={videoContainerRef} className="w-full h-full">
+                  {videoInView && (
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="none"
+                      className="w-full h-full object-cover"
+                    >
+                      <source
+                        src={artwork.artwork.src}
+                        type="video/mp4"
+                      ></source>
+                    </video>
+                  )}
+                </m.div>
               )}
-            </motion.div>
+            </m.div>
             <div className="absolute inset-0 bg-black/10 rounded-md"></div>
           </div>
 
@@ -79,51 +110,11 @@ export default memo(function ArtworkItem({ artwork }: Props) {
             </div>
           </div>
         </button>
-      </motion.div>
+      </m.div>
 
       <AnimatePresence>
         {selected && (
-          <motion.div
-            key="modal-root"
-            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-black/80 pointer-events-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={sharedTransition}
-              onClick={() => setSelected(false)}
-            />
-
-            <motion.div
-              layoutId={`artwork-${artwork.index}`}
-              className="w-auto h-auto max-h-[90vh] max-w-[90vw] rounded-md relative pointer-events-auto shadow-2xl overflow-hidden z-50"
-              transition={sharedTransition}
-            >
-              {!artwork.artwork.isVideo ? (
-                <Image
-                  src={artwork.artwork.src}
-                  alt={`Artwork ${artwork.displayIndex + 1}`}
-                  className="w-auto h-auto object-contain max-h-[90vh] max-w-[90vw]"
-                  priority
-                />
-              ) : (
-                <motion.div className="w-full h-full">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-auto h-auto object-contain max-h-[90vh] max-w-[90vw]"
-                  >
-                    <source src={artwork.artwork.src} type="video/mp4"></source>
-                  </video>
-                </motion.div>
-              )}
-            </motion.div>
-          </motion.div>
+          <ArtworkModal artwork={artwork} onClose={() => setSelected(false)} />
         )}
       </AnimatePresence>
     </div>

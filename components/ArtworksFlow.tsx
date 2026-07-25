@@ -8,7 +8,7 @@ import { useMotionValue } from "framer-motion";
 import { allArtworks } from "./Artworks";
 
 export default function ArtworksFlow() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
 
   const artworksRef = useRef<HTMLDivElement>(null);
   const artworksEndRef = useRef<HTMLDivElement>(null);
@@ -45,12 +45,12 @@ export default function ArtworksFlow() {
     if (visibleIndex === -1) return;
 
     const visibleEl = children[visibleIndex] as HTMLElement;
-    const rect = visibleEl.getBoundingClientRect();
+    const visibleRect = visibleEl.getBoundingClientRect();
     const gridColumns =
       getComputedStyle(artworksEl).gridTemplateColumns.split(" ").length;
 
     // Row visibility, value between 0-1
-    const rowScrollRatio = Math.max(0, -rect.top) / rect.height;
+    const rowScrollRatio = Math.max(0, -visibleRect.top) / visibleRect.height;
 
     //
     const exactPosition = visibleIndex + rowScrollRatio * gridColumns;

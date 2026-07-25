@@ -11,6 +11,9 @@ import artwork7 from "@/public/artworks/adobes-expensive.webp";
 import artwork8 from "@/public/artworks/not-giving-up.webp";
 import artwork9 from "@/public/artworks/est.webp";
 import artwork10 from "@/public/artworks/crying.webp";
+import artwork13 from "@/public/artworks/not-conformed.webp";
+import artwork14 from "@/public/artworks/stickers.webp";
+import artwork15 from "@/public/artworks/art-demands.webp";
 import { useState } from "react";
 import ArtworksFlow from "./ArtworksFlow";
 import { InfinityIcon, RowsIcon } from "@phosphor-icons/react";
@@ -30,6 +33,9 @@ export const allArtworks: IArtwork[] = [
   { src: artwork10, description: "哭泣", needsBorder: true },
   { src: "/artworks/toruses.mp4", description: "Toruses", isVideo: true },
   { src: "/artworks/circles.mp4", description: "Circles", isVideo: true },
+  { src: artwork13, description: "Not conformed" },
+  { src: artwork14, description: "Stickers" },
+  { src: artwork15, description: "Art demands yourself" },
 ];
 
 export default function Artworks() {

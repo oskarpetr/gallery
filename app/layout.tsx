@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Lenis } from "lenis/react";
+import MotionProvider from "@/components/MotionProvider";
 
 const neueMontreal = localFont({
   src: [
@@ -32,7 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${neueMontreal.variable} h-full antialiased`}>
-      <body className={neueMontreal.variable}>{children}</body>
+      <body className={neueMontreal.variable}>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }
