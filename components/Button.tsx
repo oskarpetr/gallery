@@ -5,15 +5,19 @@ interface Props {
   text: string;
   onClick: () => void;
   icon: ReactNode;
-  active: boolean;
+  color: "black" | "gray" | "white";
 }
 
-export default function Button({ text, onClick, icon, active }: Props) {
+export default function Button({ text, onClick, icon, color }: Props) {
   return (
     <button
       className={cn(
-        "rounded-lg px-4 py-1.5 flex items-center gap-1 transition cursor-pointer",
-        active ? "bg-black text-white" : "bg-black/10 hover:bg-black/15",
+        "rounded-full px-4 py-2 flex items-center gap-1 transition cursor-pointer",
+        color === "black"
+          ? "bg-black text-white"
+          : color === "gray"
+            ? "bg-black/10 text-black/80 hover:bg-black/15"
+            : "bg-white",
       )}
       onClick={onClick}
     >

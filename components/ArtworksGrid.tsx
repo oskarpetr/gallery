@@ -1,6 +1,6 @@
 import { IDisplayArtwork } from "@/types/Artwork";
-import { allArtworks } from "./Artworks";
 import ArtworkItems from "./ArtworkItems";
+import { allArtworks } from "@/lib/artworks";
 
 export default function ArtworksGrid() {
   const artworkItems: IDisplayArtwork[] = Array.from(

@@ -5,7 +5,7 @@ import { IDisplayArtwork } from "@/types/Artwork";
 import ArtworkItems from "./ArtworkItems";
 import ScrollIndicator from "./ScrollIndicator";
 import { useMotionValue } from "framer-motion";
-import { allArtworks } from "./Artworks";
+import { allArtworks } from "@/lib/artworks";
 
 export default function ArtworksFlow() {
   const [page, setPage] = useState(1);

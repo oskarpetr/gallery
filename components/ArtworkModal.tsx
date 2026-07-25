@@ -3,7 +3,10 @@
 import { IDisplayArtwork } from "@/types/Artwork";
 import Image from "next/image";
 import { m } from "framer-motion";
-import { sharedTransition } from "@/lib/animation";
+import { sharedTransition } from "@/lib/constants/animation";
+import { useArtworkDimensions } from "@/lib/hooks/useArtworkDimensions";
+
+const MotionImage = m.create(Image);
 
 interface Props {
   artwork: IDisplayArtwork;
@@ -11,6 +14,8 @@ interface Props {
 }
 
 export default function ArtworkModal({ artwork, onClose }: Props) {
+  const { width, height } = useArtworkDimensions(artwork.artwork);
+
   return (
     <m.div
       key="modal-root"
@@ -28,30 +33,32 @@ export default function ArtworkModal({ artwork, onClose }: Props) {
 
       <m.div
         layoutId={`artwork-${artwork.index}`}
-        className="w-auto h-auto max-h-[90vh] max-w-[90vw] rounded-md relative pointer-events-auto shadow-2xl overflow-hidden z-50"
+        style={{ width, height }}
+        className="rounded-md relative pointer-events-auto shadow-2xl overflow-hidden z-50"
         transition={sharedTransition}
       >
-        {!artwork.artwork.isVideo ? (
-          <Image
+        {artwork.artwork.type === "image" ? (
+          <MotionImage
             src={artwork.artwork.src}
             alt={`Artwork ${artwork.displayIndex + 1}`}
-            className="w-auto h-auto object-contain max-h-[90vh] max-w-[90vw]"
-            width={1920}
-            height={1080}
+            className="object-cover w-full h-full"
+            sizes="70vw"
             quality={85}
             priority
+            transition={sharedTransition}
           />
         ) : (
           <m.div className="w-full h-full">
-            <video
+            <m.video
               autoPlay
               loop
               muted
               playsInline
-              className="w-auto h-auto object-contain max-h-[90vh] max-w-[90vw]"
+              className="w-full h-full object-cover"
+              transition={sharedTransition}
             >
-              <source src={artwork.artwork.src} type="video/mp4"></source>
-            </video>
+              <source src={artwork.artwork.src} type="video/mp4" />
+            </m.video>
           </m.div>
         )}
       </m.div>
