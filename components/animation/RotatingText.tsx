@@ -6,10 +6,11 @@ import { ComponentProps, Fragment } from "react";
 
 interface Props {
   text: string;
+  delay?: number;
   className?: ComponentProps<"div">["className"];
 }
 
-export default function RotatingText({ text, className }: Props) {
+export default function RotatingText({ text, delay = 0, className }: Props) {
   const words = text.split(" ");
 
   return (
@@ -20,7 +21,7 @@ export default function RotatingText({ text, className }: Props) {
             initial={{ rotateX: -90, opacity: 0, translateY: "100%" }}
             animate={{ rotateX: 0, opacity: 1, translateY: 0 }}
             transition={{
-              delay: wordIndex * 0.03,
+              delay: wordIndex * 0.01 + delay,
               type: "spring",
               damping: 10,
               stiffness: 100,
@@ -31,9 +32,6 @@ export default function RotatingText({ text, className }: Props) {
             {word}
           </m.span>
           {wordIndex !== words.length - 1 && " "}
-          {/* {wordIndex !== words.length - 1 && (
-            <span className="w-1 h-1 inline-block"></span>
-          )} */}
         </Fragment>
       ))}
     </div>

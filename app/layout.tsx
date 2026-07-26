@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Lenis } from "lenis/react";
-import MotionProvider from "@/components/MotionProvider";
+import MotionProvider from "@/components/animation/MotionProvider";
 
 const neueMontreal = localFont({
   src: [

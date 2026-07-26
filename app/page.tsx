@@ -1,5 +1,5 @@
-import Artworks from "@/components/Artworks";
-import Menu from "@/components/Menu";
+import Artworks from "@/components/artworks/Artworks";
+import Menu from "@/components/ui/Menu";
 
 export default function Home() {
   return (
