@@ -6,10 +6,10 @@ interface Props {
 
 export default function ScrollIndicator({ progress }: Props) {
   const smoothProgress = useSpring(progress, {
-    stiffness: 400,
-    damping: 40,
-    mass: 0.2,
-    restDelta: 0.0001,
+    stiffness: 200,
+    damping: 20,
+    mass: 0.5,
+    restDelta: 0.001,
   });
 
   const topMain = useTransform(smoothProgress, (v) => `${(v % 1) * 100}%`);
@@ -24,14 +24,14 @@ export default function ScrollIndicator({ progress }: Props) {
   //   );
 
   return (
-    <div className="fixed bottom-6 right-6 flex gap-2 bg-black rounded-[18px] h-64 p-3 shadow-2xl border-2 border-black/10">
-      <div className="relative h-full w-3 bg-white/20 rounded-full overflow-hidden">
+    <div className="fixed right-6 bottom-6 flex h-64 gap-2 rounded-[18px] border-2 border-black/10 bg-black p-3 shadow-2xl">
+      <div className="relative h-full w-3 overflow-hidden rounded-full bg-white/20">
         <m.div
-          className="absolute w-3 bg-white rounded-full h-12"
+          className="absolute h-12 w-3 rounded-full bg-white"
           style={{ top: topMain }}
         ></m.div>
         <m.div
-          className="absolute w-3 bg-white rounded-full h-12"
+          className="absolute h-12 w-3 rounded-full bg-white"
           style={{ top: topGhost }}
         ></m.div>
       </div>

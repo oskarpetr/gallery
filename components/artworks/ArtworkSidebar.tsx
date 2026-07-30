@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import { ArrowsInSimpleIcon } from "@phosphor-icons/react";
 import { IDisplayArtwork } from "@/types/Artwork";
 import RotatingText from "../animation/RotatingText";
+import Tag from "../ui/Tag";
 
 interface Props {
   item: IDisplayArtwork;
@@ -20,7 +21,7 @@ export default function ArtworkSidebar({ item, onClose }: Props) {
       animate={{ x: "0%" }}
       exit={{ x: "100%" }}
       transition={sharedTransition}
-      className="h-screen relative flex flex-col gap-8 right-0 top-0 w-120 bg-white pointer-events-auto p-3 rounded-l-4xl"
+      className="pointer-events-auto relative top-0 right-0 flex h-screen w-full flex-col gap-8 overflow-scroll rounded-t-4xl bg-white p-3 md:w-96 md:min-w-96 md:rounded-t-none md:rounded-l-4xl"
     >
       <Button
         text="Collapse"
@@ -42,8 +43,21 @@ export default function ArtworkSidebar({ item, onClose }: Props) {
 
       <RotatingText
         text={`Artwork from ${item.artwork.date.toLocaleDateString()}`}
-        delay={item.artwork.description.split(" ").length * 0.01}
+        delay={desc.split(" ").length * 0.01}
       />
+
+      {/* <div>
+        <div className="text-xl">
+          <RotatingText text="Poster" />
+          <RotatingText text="Personal project" />
+          <RotatingText text="Poster" />
+        </div>
+      </div>
+
+      <div className="flex gap-1.5">
+        <Tag text="2026" color="gray" />
+        <Tag text="Poster" color="gray" />
+      </div> */}
     </m.div>
   );
 }

@@ -12,11 +12,11 @@ export default function Button({ text, onClick, icon, color }: Props) {
   return (
     <button
       className={cn(
-        "rounded-full w-fit px-4 py-2 flex items-center gap-1 transition cursor-pointer",
+        "flex w-fit cursor-pointer items-center gap-1 rounded-full px-4 py-2 transition",
         color === "black"
           ? "bg-black text-white"
           : color === "gray"
-            ? "bg-black/10 text-black/80 hover:bg-black/15"
+            ? "bg-black/10 hover:bg-black/15"
             : "bg-white",
       )}
       onClick={onClick}

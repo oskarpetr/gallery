@@ -13,6 +13,7 @@ import artwork13 from "@/public/artworks/not-conformed.webp";
 import artwork14 from "@/public/artworks/stickers.webp";
 import artwork15 from "@/public/artworks/art-demands.webp";
 import artwork16 from "@/public/artworks/salvation.webp";
+import artwork17 from "@/public/artworks/static2.webp";
 
 const unsortedArtworks: IArtwork[] = [
   {
@@ -21,6 +22,13 @@ const unsortedArtworks: IArtwork[] = [
     title: "Salvation",
     description: "",
     date: new Date("2026-06-29"),
+  },
+  {
+    type: "image",
+    src: artwork17,
+    title: "Static",
+    description: "",
+    date: new Date("2026-06-27"),
   },
   {
     type: "image",
