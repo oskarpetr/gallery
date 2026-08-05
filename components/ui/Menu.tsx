@@ -4,7 +4,7 @@ import RotatingText from "../animation/RotatingText";
 export default function Menu() {
   return (
     <div className="flex justify-between">
-      <div className="flex flex-col gap-1 w-fit">
+      <div className="flex w-fit flex-col gap-1">
         <Link href="/">
           <h1 className="text-5xl">
             <RotatingText text="Oskar's Gallery" />

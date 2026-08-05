@@ -7,11 +7,11 @@ export function useTransform3D() {
 
   const springConfig = { stiffness: 150, damping: 20 };
   const rotateX = useSpring(
-    useTransform(y, [-0.5, 0.5], [20, -20]),
+    useTransform(y, [-0.5, 0.5], [-15, 15]),
     springConfig,
   );
   const rotateY = useSpring(
-    useTransform(x, [-0.5, 0.5], [-20, 20]),
+    useTransform(x, [-0.5, 0.5], [15, -15]),
     springConfig,
   );
 

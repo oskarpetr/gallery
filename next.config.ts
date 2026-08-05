@@ -7,7 +7,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [50, 70, 85],
+    qualities: [30, 50, 70, 85],
   },
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react", "framer-motion"],

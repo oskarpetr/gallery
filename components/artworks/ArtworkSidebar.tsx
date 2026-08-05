@@ -21,7 +21,7 @@ export default function ArtworkSidebar({ item, onClose }: Props) {
       animate={{ x: "0%" }}
       exit={{ x: "100%" }}
       transition={sharedTransition}
-      className="pointer-events-auto relative top-0 right-0 flex h-screen w-full flex-col gap-8 overflow-scroll rounded-t-4xl bg-white p-3 md:w-96 md:min-w-96 md:rounded-t-none md:rounded-l-4xl"
+      className="pointer-events-auto relative top-0 right-0 flex h-screen w-full flex-col gap-12 overflow-scroll rounded-t-4xl bg-white p-3 md:w-96 md:min-w-96 md:rounded-t-none md:rounded-l-4xl"
     >
       <Button
         text="Collapse"
@@ -30,21 +30,40 @@ export default function ArtworkSidebar({ item, onClose }: Props) {
         onClick={onClose}
       />
 
-      <div className="flex flex-col gap-2">
-        <h2>
-          {String(item.displayIndex + 1).padStart(2, "0")}
-          {" — "}
-          {item.artwork.title}
-        </h2>
-        <div className="text-xl">
-          <RotatingText text={desc || "No description yet..."} />
+      <div className="flex flex-col gap-4">
+        <div>
+          <div className="flex items-center gap-0 text-4xl font-bold opacity-50">
+            {String(item.displayIndex + 1)
+              .padStart(2, "0")
+              .split("")
+              .map((char, charIndex) =>
+                char === "0" ? (
+                  <div
+                    key={`${item.index}-${charIndex}`}
+                    className="h-6.5 w-5.5 rounded-full bg-black"
+                  ></div>
+                ) : (
+                  <div key={`${item.index}-${charIndex}`}>{char}</div>
+                ),
+              )}
+          </div>
+          <h2 className="text-3xl">{item.artwork.title}</h2>
+          {/* <div className="relative -mx-3 mt-3 h-1 w-[calc(100%+24px)] bg-black/20"></div> */}
         </div>
-      </div>
 
-      <RotatingText
-        text={`Artwork from ${item.artwork.date.toLocaleDateString()}`}
-        delay={desc.split(" ").length * 0.01}
-      />
+        {/* <div className="text- opacity-50">About artwork</div> */}
+
+        <div className="text-xl">
+          <RotatingText
+            text={item.artwork.description || "No description yet..."}
+          />
+        </div>
+
+        <RotatingText
+          text={`Artwork from ${item.artwork.date.toLocaleDateString()}`}
+          delay={item.artwork.description.split(" ").length * 0.01}
+        />
+      </div>
 
       {/* <div>
         <div className="text-xl">

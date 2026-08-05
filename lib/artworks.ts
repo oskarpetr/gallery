@@ -13,13 +13,14 @@ import artwork13 from "@/public/artworks/not-conformed.webp";
 import artwork14 from "@/public/artworks/stickers.webp";
 import artwork15 from "@/public/artworks/art-demands.webp";
 import artwork16 from "@/public/artworks/salvation.webp";
-import artwork17 from "@/public/artworks/static2.webp";
+import artwork17 from "@/public/artworks/static.webp";
+import artwork18 from "@/public/artworks/chladni.webp";
 
 const unsortedArtworks: IArtwork[] = [
   {
     type: "image",
     src: artwork16,
-    title: "Salvation",
+    title: "Sal—va—tion",
     description: "",
     date: new Date("2026-06-29"),
   },
@@ -40,9 +41,8 @@ const unsortedArtworks: IArtwork[] = [
   {
     type: "image",
     src: artwork10,
-    title: "哭泣",
+    title: "Blue",
     description: "",
-    needsBorder: true,
     date: new Date("2026-05-05"),
   },
   {
@@ -55,15 +55,23 @@ const unsortedArtworks: IArtwork[] = [
   {
     type: "video",
     src: "/artworks/circles.mp4",
-    title: "Circles",
+    title: "Circles in motion",
     description: "",
     aspectRatio: 1 / 1,
     date: new Date("2026-03-25"),
   },
   {
     type: "image",
+    src: artwork18,
+    title: "Chladni pattern",
+    description:
+      "Chladni patterns help us understand how sound propagates in waves through specific media. This artwork showcases a slightly customised Chladni pattern with the parameters n = 14 and m = 15.",
+    date: new Date("2026-03-21"),
+  },
+  {
+    type: "image",
     src: artwork5,
-    title: "Seznamovák",
+    title: "Seznamovák FIT",
     description: "",
     date: new Date("2026-03-19"),
   },
@@ -71,8 +79,7 @@ const unsortedArtworks: IArtwork[] = [
     type: "image",
     src: artwork2,
     title: "What's next?",
-    description:
-      "I build websites using Next.js with React, styling them with Tailwind CSS and adding animations with Framer Motion. I also provide my clients with a CMS to manage content. I've collaborated on several projects, including freelance work and personal ones.",
+    description: "",
     date: new Date("2026-03-10"),
   },
   {
@@ -87,14 +94,15 @@ const unsortedArtworks: IArtwork[] = [
     type: "image",
     src: artwork3,
     title: "Business card",
-    description: "",
+    description:
+      "It's quite sad that business cards aren't used as much as they used to be. Who doesn't need one? Bring business cards back!",
     needsBorder: true,
     date: new Date("2026-02-08"),
   },
   {
     type: "image",
     src: artwork4,
-    title: "Percentages",
+    title: "98% percent",
     description: "",
     date: new Date("2026-02-07"),
   },
@@ -122,7 +130,7 @@ const unsortedArtworks: IArtwork[] = [
   {
     type: "image",
     src: artwork9,
-    title: "Est. 2005",
+    title: "Est.2005",
     description: "",
     date: new Date("2026-01-27"),
   },
@@ -136,7 +144,7 @@ const unsortedArtworks: IArtwork[] = [
   {
     type: "image",
     src: artwork1,
-    title: "Stillness",
+    title: "Soul—still",
     description: "",
     date: new Date("2025-07-10"),
   },

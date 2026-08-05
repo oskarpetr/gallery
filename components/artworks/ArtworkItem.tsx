@@ -22,6 +22,8 @@ interface Props {
 }
 
 export default function ArtworkItem({ item, setSelected }: Props) {
+  const [hovered, setHovered] = useState(false);
+
   const [videoInView, setVideoInView] = useState(false);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
@@ -53,11 +55,28 @@ export default function ArtworkItem({ item, setSelected }: Props) {
         delay: item.displayIndex * 0.02,
         ...sharedTransition,
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className="flex flex-col gap-2"
     >
-      <div>
-        <div>{String(item.displayIndex + 1).padStart(2, "0")}</div>
-        <div className="-mt-1">{item.artwork.title}</div>
+      <div className="flex items-baseline gap-1.5">
+        <div className="flex items-center gap-[0.5px] font-bold opacity-50">
+          {String(item.displayIndex + 1)
+            .padStart(2, "0")
+            .split("")
+            .map((char, charIndex) =>
+              char === "0" ? (
+                <div
+                  key={`${item.index}-${charIndex}`}
+                  className="h-3 w-2.5 rounded-full bg-black"
+                ></div>
+              ) : (
+                <div key={`${item.index}-${charIndex}`}>{char}</div>
+              ),
+            )}
+        </div>
+        {/* <div className="opacity-30">{" / "}</div> */}
+        <h2 className="-mt-1">{item.artwork.title}</h2>
       </div>
 
       <m.div
@@ -79,7 +98,7 @@ export default function ArtworkItem({ item, setSelected }: Props) {
                 alt={`Artwork ${item.displayIndex + 1}`}
                 width={600}
                 height={600}
-                quality={50}
+                quality={30}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                 priority={item.displayIndex < 4}
                 fetchPriority={item.displayIndex < 4 ? "high" : "auto"}
@@ -98,13 +117,19 @@ export default function ArtworkItem({ item, setSelected }: Props) {
           <div className="absolute inset-0 rounded-md bg-black/10"></div>
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-md bg-black/50 opacity-0 transition group-hover:opacity-100">
-          <Button
-            text="Explore"
-            icon={<BinocularsIcon weight="fill" />}
-            onClick={() => {}}
-            color="white"
-          />
+        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-md bg-black/30 opacity-0 transition group-hover:opacity-100">
+          <m.div
+            initial={{ y: 10 }}
+            animate={hovered ? { y: 0 } : { y: 10 }}
+            exit={{ y: 10 }}
+          >
+            <Button
+              text="Explore"
+              icon={<BinocularsIcon weight="fill" />}
+              onClick={() => {}}
+              color="white"
+            />
+          </m.div>
         </div>
       </m.div>
     </m.div>

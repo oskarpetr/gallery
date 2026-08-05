@@ -31,7 +31,7 @@ const ArtworkItems = forwardRef<HTMLDivElement, Props>(function Artworks(
     <div>
       <div
         ref={ref}
-        className="grid grid-cols-2 gap-x-3 gap-y-16 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7"
+        className="grid grid-cols-2 gap-x-3 gap-y-16 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6"
       >
         {artworks.map((item) => (
           <ArtworkItem

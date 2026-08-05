@@ -24,7 +24,7 @@ export default function ArtworkModal({ item, onClose }: Props) {
   return (
     <div className="pointer-events-none fixed inset-0 z-10">
       <m.div
-        className="pointer-events-auto absolute inset-0 bg-black/80 backdrop-blur-lg"
+        className="pointer-events-auto absolute inset-0 bg-black/80 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -37,7 +37,7 @@ export default function ArtworkModal({ item, onClose }: Props) {
           <m.div
             layoutId={`artwork-${item.index}`}
             style={{ width, height }}
-            className="pointer-events-auto relative z-10 perspective-distant transform-3d"
+            className="pointer-events-auto relative z-10 perspective-distant transform-3d max-md:h-auto! max-md:w-full!"
             transition={sharedTransition}
             onMouseMove={transform3D ? handle3DMove : undefined}
             onMouseLeave={transform3D ? handle3DLeave : undefined}
